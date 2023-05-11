@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">FileManager</string>
+
+    <string name="permission_screen_desc">
+        Для корректной работы приложению необходимо предоставить доступ к файлам на вашем устройстве.
+        Чтобы это сделать перейдите в Настройки -> Управление -> Специальный доступ -> Доступ ко всем файлам
+    </string>>
+    <string name="permission_screen_start">НАЧАТЬ</string>>
+
 </resources>
