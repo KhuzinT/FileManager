@@ -43,3 +43,4 @@ fun shareFile(file: File, context: Context) {
 
     ContextCompat.startActivity(context, chooserIntent, null)
 }
+

@@ -3,7 +3,10 @@ package com.example.filemanager.screens.utils
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
@@ -14,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import java.io.File
@@ -31,35 +35,37 @@ fun FileCard(file: File, onActionClick: () -> Unit, modifier: Modifier = Modifie
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        Icon(
-            imageVector = if (file.isDirectory) {
-                Icons.Outlined.Folder
-            } else {
-                when (file.extension.lowercase()) {
-                    in listOf("jpeg", "png", "jpg", "img") -> {
-                        Icons.Outlined.Image
+        if (file.extension.lowercase() in listOf("jpeg", "png", "jpg", "img")) {
+            ImageFromFile(file = file, modifier = Modifier.size(50.dp, 50.dp))
+        } else {
+            Icon(
+                imageVector = if (file.isDirectory) {
+                    Icons.Outlined.Folder
+                } else {
+                    when (file.extension.lowercase()) {
+                        "mp3" -> {
+                            Icons.Outlined.Headphones
+                        }
+                        "mp4" -> {
+                            Icons.Outlined.Movie
+                        }
+                        "pdf" -> {
+                            Icons.Outlined.PictureAsPdf
+                        }
+                        "gif" -> {
+                            Icons.Outlined.GifBox
+                        }
+                        else -> {
+                            Icons.Outlined.Description
+                        }
                     }
-                    "mp3" -> {
-                        Icons.Outlined.Headphones
-                    }
-                    "mp4" -> {
-                        Icons.Outlined.Movie
-                    }
-                    "pdf" -> {
-                        Icons.Outlined.PictureAsPdf
-                    }
-                    "gif" -> {
-                        Icons.Outlined.GifBox
-                    }
-                    else -> {
-                        Icons.Outlined.Description
-                    }
-                }
-            },
-            contentDescription = file.name,
-            tint = MaterialTheme.colors.primary,
-            modifier = modifier.size(50.dp, 50.dp)
-        )
+                },
+                contentDescription = file.name,
+                tint = MaterialTheme.colors.primary,
+                modifier = modifier.size(50.dp, 50.dp)
+            )
+
+        }
 
         Spacer(modifier = modifier.width(5.dp))
 
@@ -113,7 +119,9 @@ fun FileCard(file: File, onActionClick: () -> Unit, modifier: Modifier = Modifie
             },
             contentDescription = null,
             tint = MaterialTheme.colors.onBackground,
-            modifier = modifier.size(40.dp, 40.dp).clickable(onClick = onActionClick)
+            modifier = modifier
+                .size(40.dp, 40.dp)
+                .clickable(onClick = onActionClick)
         )
     }
 
