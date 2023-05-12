@@ -40,9 +40,11 @@ fun AllFilesScreen(navController: NavHostController, viewModel: AllFilesViewMode
         ) {
 
             if (uiState.value.directory.absolutePath == "/storage/emulated/0") {
-                FilesTypeNavigationBar(navController = navController, modifier = Modifier)
+                /*ToDo: раскомментировать, когда поймешь, как решить баг с дублированием файлов в FilesTypeScreen*/
 
-                Spacer(modifier = Modifier.height(15.dp))
+//                FilesTypeNavigationBar(navController = navController, modifier = Modifier)
+//
+//                Spacer(modifier = Modifier.height(15.dp))
 
 
                 Row(

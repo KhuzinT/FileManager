@@ -1,6 +1,6 @@
 package com.example.filemanager.screens.files.type
 
-import android.os.Environment.getExternalStorageDirectory
+
 import androidx.annotation.StringRes
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -25,7 +25,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.filemanager.R
-import com.example.filemanager.screens.files.all.AllFilesEvent
 import com.example.filemanager.screens.utils.*
 
 @Composable
@@ -36,7 +35,7 @@ fun FilesTypeScreen(
     viewModel: FilesTypeViewModel = viewModel()
 ) {
     viewModel.processEvent(FilesTypeEvent.SetExtensions(extensions))
-    viewModel.processEvent(FilesTypeEvent.LoadFiles(getExternalStorageDirectory()))
+    viewModel.processEvent(FilesTypeEvent.LoadFiles)
 
     val uiState = viewModel.uiState.collectAsState()
 
