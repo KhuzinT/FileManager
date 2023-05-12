@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.filemanager.data.file.FileEntity
 import com.example.filemanager.data.file.FileRepository
+import com.example.filemanager.screens.utils.getFiles
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -67,10 +68,6 @@ class ModifiedFilesViewModel
                 compareHashesRecursive(file)
             }
         }
-    }
-
-    private fun getFiles(directory: File): List<File> {
-        return directory.listFiles()?.toList()?.sorted() ?: emptyList()
     }
 
 }

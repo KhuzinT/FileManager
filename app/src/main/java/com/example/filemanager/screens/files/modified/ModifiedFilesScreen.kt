@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -22,9 +23,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.filemanager.R
-import com.example.filemanager.screens.utils.FileCard
-import com.example.filemanager.screens.utils.FilesTypeNavigationBar
-import com.example.filemanager.screens.utils.InBackground
+import com.example.filemanager.screens.utils.*
 
 @Composable
 fun ModifiedFilesScreen(
@@ -79,20 +78,20 @@ fun ModifiedFilesScreen(
                     )
                 }
             } else {
+                val context = LocalContext.current
                 LazyColumn(
                     state = rememberLazyListState(initialFirstVisibleItemScrollOffset = 50),
                     modifier = Modifier.fillMaxSize()
                 ) {
-                    items(items = uiState.value.files) {
+                    items(items = uiState.value.files.filter { !it.isDirectory }) {
                         FileCard(
                             file = it,
+                            onActionClick = {
+                                shareFile(it, context)
+                            },
                             modifier = Modifier.clickable(
                                 onClick = {
-                                    if (it.isDirectory) {
-                                        /*ToDo: придумать что-то*/
-                                    } else {
-                                        /*ToDo: открыть файл*/
-                                    }
+                                    openFile(it, context)
                                 }
                             )
                         )

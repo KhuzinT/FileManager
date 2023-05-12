@@ -18,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -26,6 +27,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.filemanager.R
 import com.example.filemanager.screens.utils.FileCard
 import com.example.filemanager.screens.utils.InBackground
+import com.example.filemanager.screens.utils.openFile
+import com.example.filemanager.screens.utils.shareFile
 
 @Composable
 fun FilesTypeScreen(
@@ -95,20 +98,20 @@ fun FilesTypeScreen(
                     )
                 }
             } else {
+                val context = LocalContext.current
                 LazyColumn(
                     state = rememberLazyListState(initialFirstVisibleItemScrollOffset = 50),
                     modifier = Modifier.fillMaxSize()
                 ) {
-                    items(items = uiState.value.files) {
+                    items(items = uiState.value.files.filter { !it.isDirectory }) {
                         FileCard(
                             file = it,
+                            onActionClick = {
+                                shareFile(it, context)
+                            },
                             modifier = Modifier.clickable(
                                 onClick = {
-                                    if (it.isDirectory) {
-                                        /*ToDo: открыть или ничего не делать*/
-                                    } else {
-                                        /*ToDo: открыть файл*/
-                                    }
+                                    openFile(it, context)
                                 }
                             )
                         )

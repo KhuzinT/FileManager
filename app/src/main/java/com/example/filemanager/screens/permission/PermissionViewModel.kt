@@ -20,7 +20,7 @@ class PermissionViewModel : ViewModel() {
         } else {
             Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION)
         }
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(context, intent, null)
     }
 

@@ -2,6 +2,7 @@ package com.example.filemanager.screens.utils
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
@@ -20,7 +21,7 @@ import java.text.SimpleDateFormat
 
 @SuppressLint("SimpleDateFormat")
 @Composable
-fun FileCard(file: File, modifier: Modifier = Modifier) {
+fun FileCard(file: File, onActionClick: () -> Unit, modifier: Modifier = Modifier) {
     Spacer(modifier = modifier.height(10.dp))
 
     Row(
@@ -112,7 +113,7 @@ fun FileCard(file: File, modifier: Modifier = Modifier) {
             },
             contentDescription = null,
             tint = MaterialTheme.colors.onBackground,
-            modifier = modifier.size(40.dp, 40.dp)
+            modifier = modifier.size(40.dp, 40.dp).clickable(onClick = onActionClick)
         )
     }
 

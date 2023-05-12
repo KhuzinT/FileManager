@@ -3,6 +3,7 @@ package com.example.filemanager.screens.files.type
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.filemanager.screens.utils.getFiles
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -48,7 +49,5 @@ class FilesTypeViewModel : ViewModel() {
         }
     }
 
-    private fun getFiles(directory: File): List<File> {
-        return directory.listFiles()?.toList()?.sorted() ?: emptyList()
-    }
+
 }
