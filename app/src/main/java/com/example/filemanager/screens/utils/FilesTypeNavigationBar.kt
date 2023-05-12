@@ -19,12 +19,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.example.filemanager.R
+import com.example.filemanager.navigation.files.all.AllFilesNavGraph
 import com.example.filemanager.navigation.files.modified.ModifiedFilesNavGraph
 
+
 @Composable
-fun FilesTypeNavigationBar(navController: NavController, modifier: Modifier = Modifier) {
+fun FilesTypeNavigationBar(navController: NavHostController, modifier: Modifier = Modifier) {
     Row(
         modifier = modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
@@ -34,7 +36,7 @@ fun FilesTypeNavigationBar(navController: NavController, modifier: Modifier = Mo
             desc = R.string.modified_files_screen_images_ru,
             icon = Icons.Outlined.Image,
             background = Color.Green.copy(alpha = 0.5f),
-            onClick = { navController.navigate(ModifiedFilesNavGraph.ImagesFiles.name) },
+            onClick = { navController.navigate(AllFilesNavGraph.ImagesFiles.name) },
             modifier = modifier
         )
 
@@ -42,7 +44,7 @@ fun FilesTypeNavigationBar(navController: NavController, modifier: Modifier = Mo
             desc = R.string.modified_files_screen_movies_ru,
             icon = Icons.Outlined.Movie,
             background = Color.Yellow.copy(alpha = 0.5f),
-            onClick = { navController.navigate(ModifiedFilesNavGraph.MoviesFiles.name) },
+            onClick = { navController.navigate(AllFilesNavGraph.MoviesFiles.name) },
             modifier = modifier
         )
 
@@ -50,7 +52,7 @@ fun FilesTypeNavigationBar(navController: NavController, modifier: Modifier = Mo
             desc = R.string.modified_files_screen_docs_ru,
             icon = Icons.Outlined.Description,
             background = Color.Magenta.copy(alpha = 0.5f),
-            onClick = { navController.navigate(ModifiedFilesNavGraph.DocsFiles.name) },
+            onClick = { navController.navigate(AllFilesNavGraph.DocsFiles.name) },
             modifier = modifier
         )
 
@@ -58,7 +60,7 @@ fun FilesTypeNavigationBar(navController: NavController, modifier: Modifier = Mo
             desc = R.string.modified_files_screen_audio_ru,
             icon = Icons.Outlined.Headphones,
             background = Color.Red.copy(alpha = 0.5f),
-            onClick = { navController.navigate(ModifiedFilesNavGraph.AudioFiles.name) },
+            onClick = { navController.navigate(AllFilesNavGraph.AudioFiles.name) },
             modifier = modifier
         )
     }

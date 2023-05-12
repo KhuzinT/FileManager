@@ -43,22 +43,23 @@ class FilesTypeViewModel : ViewModel() {
     }
 
     private fun loadFiles(directory: File) {
-//        viewModelScope.launch {}
-        val files = getFiles(_uiState.value.sortedBy, directory)
-        val typeFiles = mutableListOf<File>()
-        for (file in files) {
-            if (file.extension in _uiState.value.extensions) {
-                typeFiles.add(file)
+        viewModelScope.launch {
+            val files = getFiles(_uiState.value.sortedBy, directory)
+            val typeFiles = mutableListOf<File>()
+            for (file in files) {
+                if (file.extension in _uiState.value.extensions) {
+                    typeFiles.add(file)
+                }
             }
-        }
-        typeFiles.addAll(_uiState.value.files)
-        _uiState.update { currentState ->
-            currentState.copy(files = typeFiles)
-        }
+            typeFiles.addAll(_uiState.value.files)
+            _uiState.update { currentState ->
+                currentState.copy(files = typeFiles)
+            }
 
-        for (file in files) {
-            if (file.isDirectory) {
-                loadFiles(file)
+            for (file in files) {
+                if (file.isDirectory) {
+                    loadFiles(file)
+                }
             }
         }
     }

@@ -1,18 +1,15 @@
 package com.example.filemanager.screens.files.all
 
-import android.content.Intent
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.material.*
+import androidx.compose.material.Divider
+import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.outlined.Menu
-import androidx.compose.material.icons.outlined.MoreVert
 import androidx.compose.material.icons.outlined.NavigateBefore
 import androidx.compose.material.icons.outlined.Save
 import androidx.compose.runtime.Composable
@@ -25,16 +22,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.content.ContextCompat.startActivity
-import androidx.core.content.FileProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.example.filemanager.R
 import com.example.filemanager.screens.utils.*
 
-/*ToDo: добавить сортировку*/
 
 @Composable
-fun AllFilesScreen(viewModel: AllFilesViewModel = viewModel()) {
+fun AllFilesScreen(navController: NavHostController, viewModel: AllFilesViewModel = viewModel()) {
     val uiState = viewModel.uiState.collectAsState()
     InBackground {
         Column(
@@ -44,6 +40,11 @@ fun AllFilesScreen(viewModel: AllFilesViewModel = viewModel()) {
         ) {
 
             if (uiState.value.directory.absolutePath == "/storage/emulated/0") {
+                FilesTypeNavigationBar(navController = navController, modifier = Modifier)
+
+                Spacer(modifier = Modifier.height(15.dp))
+
+
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier.fillMaxWidth()

@@ -53,10 +53,10 @@ class AllFilesViewModel : ViewModel() {
     }
 
     private fun loadFiles() {
-//        viewModelScope.launch {}
-        _uiState.update { currentState ->
-            currentState.copy(files = getFiles(_uiState.value.sortedBy, currentState.directory))
+        viewModelScope.launch {
+            _uiState.update { currentState ->
+                currentState.copy(files = getFiles(_uiState.value.sortedBy, currentState.directory))
+            }
         }
-
     }
 }

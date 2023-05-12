@@ -22,13 +22,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.example.filemanager.R
 import com.example.filemanager.screens.files.all.AllFilesEvent
 import com.example.filemanager.screens.utils.*
 
 @Composable
 fun ModifiedFilesScreen(
-    navController: NavController,
     viewModel: ModifiedFilesViewModel = hiltViewModel()
 ) {
     val uiState = viewModel.uiState.collectAsState()
@@ -38,11 +38,6 @@ fun ModifiedFilesScreen(
                 .fillMaxSize()
                 .padding(10.dp)
         ) {
-
-            FilesTypeNavigationBar(navController = navController, modifier = Modifier)
-
-            Spacer(modifier = Modifier.height(15.dp))
-
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxWidth()
