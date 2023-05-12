@@ -1,10 +1,32 @@
 <resources>
     <string name="app_name">FileManager</string>
 
+    <!-- Permission Screen -->
+
     <string name="permission_screen_desc">
-        Для корректной работы приложению необходимо предоставить доступ к файлам на вашем устройстве.
-        Чтобы это сделать перейдите в Настройки -> Управление -> Специальный доступ -> Доступ ко всем файлам
+        Для корректной работы приложению необходимо разрешить доступ к файлам на вашем устройстве
     </string>>
-    <string name="permission_screen_start">НАЧАТЬ</string>>
+    <string name="permission_screen_start">РАЗРЕШИТЬ</string>>
+
+    <!-- All Files Screen -->
+
+    <string name="all_files_screen_title">Все файлы</string>>
+    <string name="all_files_screen_empty">Тут пока пусто…</string>>
+
+    <!-- Modified Files Screen -->
+
+    <string name="modified_files_screen_title">Недавние файлы</string>>
+
+    <!-- Navigation -->
+
+    <string name="splash_screen">Splash Screen</string>>
+    <string name="permission_nav_host">Permission Nav Host</string>>
+    <string name="files_nav_host">Files Nav Host</string>>
+
+    <string name="all_files_nav_host">All Files Nav Host</string>>
+    <string name="modified_files_nav_host">Modified Files Nav Host</string>>
+
+    <string name="all_files_screen">All Files Screen</string>>
+    <string name="modified_files_screen">Modified Files Screen</string>>
 
 </resources>
