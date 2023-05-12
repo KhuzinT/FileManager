@@ -7,8 +7,8 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import java.io.File
 
-fun getFiles(directory: File): List<File> {
-    return directory.listFiles()?.toList()?.sorted() ?: emptyList()
+fun getFiles(sortedBy: SortedBy, directory: File): List<File> {
+    return sortFiles(sortedBy, directory.listFiles()?.toList() ?: emptyList())
 }
 
 fun openFile(file: File, context: Context) {
@@ -18,7 +18,8 @@ fun openFile(file: File, context: Context) {
         val intent = Intent(Intent.ACTION_VIEW)
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
 
-        val mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(MimeTypeMap.getFileExtensionFromUrl(uri.toString()))
+        val mimeType = MimeTypeMap.getSingleton()
+            .getMimeTypeFromExtension(MimeTypeMap.getFileExtensionFromUrl(uri.toString()))
             ?: "image/*"
         intent.setDataAndType(uri, mimeType)
 
@@ -57,3 +58,29 @@ fun shareFile(file: File, context: Context) {
     ContextCompat.startActivity(context, chooserIntent, null)
 }
 
+
+fun sortFiles(sortedBy: SortedBy, list: List<File>): List<File> {
+    return when (sortedBy) {
+        SortedBy.NameAZ -> {
+            list.sortedBy { it.name }
+        }
+        SortedBy.NameZA -> {
+            list.sortedBy { it.name }.reversed()
+        }
+        SortedBy.SizeIncrease -> {
+            list.sortedBy { it.length() }
+        }
+        SortedBy.SizeDecrease -> {
+            list.sortedBy { it.length() }.reversed()
+        }
+        SortedBy.DateIncrease -> {
+            list.sortedBy { it.lastModified() }.reversed()
+        }
+        SortedBy.DateDecrease -> {
+            list.sortedBy { it.lastModified() }
+        }
+        SortedBy.Extension -> {
+            list.sortedBy { it.extension }
+        }
+    }
+}

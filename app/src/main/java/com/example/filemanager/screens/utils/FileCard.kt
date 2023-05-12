@@ -1,12 +1,8 @@
 package com.example.filemanager.screens.utils
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
@@ -70,19 +66,14 @@ fun FileCard(file: File, onActionClick: () -> Unit, modifier: Modifier = Modifie
         Spacer(modifier = modifier.width(5.dp))
 
         Column() {
-            val maxLen = 20
-            val name = if (file.name.length > maxLen) {
-                file.name.substring(0, maxLen)
-            } else {
-                file.name
-            }
-
             Text(
-                text = name,
+                text = file.name,
+                maxLines = 1,
                 color = MaterialTheme.colors.onBackground,
                 fontWeight = FontWeight(400),
                 fontSize = 20.sp,
-                modifier = modifier
+                modifier = modifier.widthIn(max = 250.dp),
+                overflow = TextOverflow.Ellipsis
             )
 
             Row {

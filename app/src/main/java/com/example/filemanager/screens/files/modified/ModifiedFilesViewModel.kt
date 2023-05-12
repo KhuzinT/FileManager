@@ -5,7 +5,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.filemanager.data.file.FileEntity
 import com.example.filemanager.data.file.FileRepository
+import com.example.filemanager.screens.utils.SortedBy
 import com.example.filemanager.screens.utils.getFiles
+import com.example.filemanager.screens.utils.sortFiles
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -29,11 +31,21 @@ class ModifiedFilesViewModel
     }
 
     fun processEvent(event: ModifiedFilesEvent) {
+        when(event) {
+            is ModifiedFilesEvent.UpdateSort -> updateSort(event.sortedBy)
+        }
+    }
 
+    private fun updateSort(sortedBy: SortedBy) {
+        if (sortedBy != _uiState.value.sortedBy) {
+            _uiState.update { currentState ->
+                currentState.copy(files = sortFiles(sortedBy, currentState.files), sortedBy = sortedBy)
+            }
+        }
     }
 
     private suspend fun compareHashesRecursive(directory: File) {
-        val files = getFiles(directory)
+        val files = getFiles(_uiState.value.sortedBy, directory)
         val saved = repository.getByPath(directory.absolutePath)
         val modified = mutableListOf<File>()
         for (file in files) {

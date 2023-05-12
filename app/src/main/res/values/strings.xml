@@ -27,6 +27,16 @@
     <string name="modified_files_screen_docs_en">Docs</string>>
     <string name="modified_files_screen_audio_en">Audio</string>>
 
+    <!-- Sorted -->
+
+    <string name="sorted_by_name_az">По имени от А до Я</string>>
+    <string name="sorted_by_name_za">По имени от Я до А</string>>
+    <string name="sorted_by_size_increase">От меньшего к большему</string>>
+    <string name="sorted_by_size_decrease">От большего к меньшему</string>>
+    <string name="sorted_by_date_increase">Сначала новые</string>>
+    <string name="sorted_by_date_decrease">Сначала старые</string>>
+    <string name="sorted_by_extension">По типу</string>>
+
     <!-- Navigation -->
 
     <string name="splash_screen">Splash Screen</string>>

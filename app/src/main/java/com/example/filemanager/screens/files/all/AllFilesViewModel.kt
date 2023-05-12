@@ -3,7 +3,9 @@ package com.example.filemanager.screens.files.all
 import android.os.Environment.getExternalStorageDirectory
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.filemanager.screens.utils.SortedBy
 import com.example.filemanager.screens.utils.getFiles
+import com.example.filemanager.screens.utils.sortFiles
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -23,6 +25,18 @@ class AllFilesViewModel : ViewModel() {
             is AllFilesEvent.OpenDirectory -> openDirectory(event.absolutePath)
             is AllFilesEvent.LoadFiles -> loadFiles()
             is AllFilesEvent.SetDirectory -> setDirectory(event.absolutePath)
+            is AllFilesEvent.UpdateSort -> updateSort(event.sortedBy)
+        }
+    }
+
+    private fun updateSort(sortedBy: SortedBy) {
+        if (sortedBy != _uiState.value.sortedBy) {
+            _uiState.update { currentState ->
+                currentState.copy(
+                    files = sortFiles(sortedBy, currentState.files),
+                    sortedBy = sortedBy
+                )
+            }
         }
     }
 
@@ -39,10 +53,10 @@ class AllFilesViewModel : ViewModel() {
     }
 
     private fun loadFiles() {
-        viewModelScope.launch {
-            _uiState.update { currentState ->
-                currentState.copy(files = getFiles(currentState.directory))
-            }
+//        viewModelScope.launch {}
+        _uiState.update { currentState ->
+            currentState.copy(files = getFiles(_uiState.value.sortedBy, currentState.directory))
         }
+
     }
 }

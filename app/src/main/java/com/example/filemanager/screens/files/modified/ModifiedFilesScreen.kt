@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.filemanager.R
+import com.example.filemanager.screens.files.all.AllFilesEvent
 import com.example.filemanager.screens.utils.*
 
 @Composable
@@ -42,18 +43,30 @@ fun ModifiedFilesScreen(
 
             Spacer(modifier = Modifier.height(15.dp))
 
-            Text(
-                text = stringResource(id = R.string.modified_files_screen_title),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(45.dp)
-                    .align(Alignment.Start)
-                    .padding(horizontal = 15.dp),
-                color = MaterialTheme.colors.onBackground,
-                fontWeight = FontWeight(400),
-                fontSize = 32.sp
-            )
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.fillMaxWidth()
+            ) {
 
+                Text(
+                    text = stringResource(id = R.string.modified_files_screen_title),
+                    modifier = Modifier
+                        .height(45.dp)
+                        .padding(horizontal = 15.dp),
+                    color = MaterialTheme.colors.onBackground,
+                    fontWeight = FontWeight(400),
+                    fontSize = 32.sp
+                )
+
+                Spacer(modifier = Modifier.weight(1f))
+
+                FileSorter(
+                    sortedBy = uiState.value.sortedBy,
+                    updateSort = { sortedBy ->
+                        viewModel.processEvent(ModifiedFilesEvent.UpdateSort(sortedBy))
+                    }
+                )
+            }
             Divider(color = MaterialTheme.colors.onBackground, thickness = 1.dp)
 
 

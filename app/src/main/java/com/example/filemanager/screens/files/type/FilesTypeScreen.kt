@@ -25,10 +25,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.filemanager.R
-import com.example.filemanager.screens.utils.FileCard
-import com.example.filemanager.screens.utils.InBackground
-import com.example.filemanager.screens.utils.openFile
-import com.example.filemanager.screens.utils.shareFile
+import com.example.filemanager.screens.files.all.AllFilesEvent
+import com.example.filemanager.screens.utils.*
 
 @Composable
 fun FilesTypeScreen(
@@ -51,26 +49,40 @@ fun FilesTypeScreen(
 
 
             Row(
-                modifier = Modifier.clickable(onClick = navigateBefore),
+                modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Icon(
-                    imageVector = Icons.Outlined.NavigateBefore,
-                    contentDescription = null,
-                    tint = MaterialTheme.colors.onBackground,
-                    modifier = Modifier
-                        .size(40.dp, 40.dp)
-                )
+                Row(
+                    modifier = Modifier.clickable(onClick = navigateBefore),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        imageVector = Icons.Outlined.NavigateBefore,
+                        contentDescription = null,
+                        tint = MaterialTheme.colors.onBackground,
+                        modifier = Modifier
+                            .size(40.dp, 40.dp)
+                    )
 
-                Spacer(modifier = Modifier.width(5.dp))
+                    Spacer(modifier = Modifier.width(5.dp))
 
-                Text(
-                    text = stringResource(id = desc),
-                    modifier = Modifier
-                        .height(45.dp),
-                    color = MaterialTheme.colors.onBackground,
-                    fontWeight = FontWeight(400),
-                    fontSize = 32.sp
+                    Text(
+                        text = stringResource(id = desc),
+                        modifier = Modifier
+                            .height(45.dp),
+                        color = MaterialTheme.colors.onBackground,
+                        fontWeight = FontWeight(400),
+                        fontSize = 32.sp
+                    )
+                }
+
+                Spacer(modifier = Modifier.weight(1f))
+
+                FileSorter(
+                    sortedBy = uiState.value.sortedBy,
+                    updateSort = { sortedBy ->
+                        viewModel.processEvent(FilesTypeEvent.UpdateSort(sortedBy))
+                    }
                 )
             }
 
