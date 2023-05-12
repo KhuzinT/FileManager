@@ -32,8 +32,8 @@ fun FilesNavHost(
     }
 
     val topNavigationItems = listOf(
+        FilesNavGraph.ModifiedFilesHost,
         FilesNavGraph.AllFilesHost,
-        FilesNavGraph.ModifiedFilesHost
     )
 
     Scaffold(
@@ -48,7 +48,7 @@ fun FilesNavHost(
         NavHost(
             navController = navController,
             route = MainNavGraph.Files.name,
-            startDestination = FilesNavGraph.AllFilesHost.name,
+            startDestination = FilesNavGraph.ModifiedFilesHost.name,
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(route = FilesNavGraph.AllFilesHost.name) {

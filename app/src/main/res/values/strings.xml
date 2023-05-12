@@ -17,6 +17,16 @@
 
     <string name="modified_files_screen_title">Недавние файлы</string>>
 
+    <string name="modified_files_screen_images_ru">Фото</string>>
+    <string name="modified_files_screen_movies_ru">Видео</string>>
+    <string name="modified_files_screen_docs_ru">Документы</string>>
+    <string name="modified_files_screen_audio_ru">Аудио</string>>
+
+    <string name="modified_files_screen_images_en">Images</string>>
+    <string name="modified_files_screen_movies_en">Movies</string>>
+    <string name="modified_files_screen_docs_en">Docs</string>>
+    <string name="modified_files_screen_audio_en">Audio</string>>
+
     <!-- Navigation -->
 
     <string name="splash_screen">Splash Screen</string>>
@@ -28,5 +38,10 @@
 
     <string name="all_files_screen">All Files Screen</string>>
     <string name="modified_files_screen">Modified Files Screen</string>>
+
+    <string name="images_files_screen">Images Files Screen</string>>
+    <string name="movies_files_screen">Movies Files Screen</string>>
+    <string name="docs_files_screen">Docs Files Screen</string>>
+    <string name="audio_files_screen">Audio Files Screen</string>>
 
 </resources>

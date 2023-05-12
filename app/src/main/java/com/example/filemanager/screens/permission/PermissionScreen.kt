@@ -44,7 +44,6 @@ fun PermissionScreen(
 
             Button(
                 onClick = {
-                    /*ToDo: возможно тут будет проблема*/
                     viewModel.processEvent(PermissionEvent.OpenSettings(context))
                     navigateToSplash()
                 },

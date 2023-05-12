@@ -30,7 +30,7 @@ import com.example.filemanager.screens.utils.InBackground
 /*ToDo: добавить сортировку*/
 
 @Composable
-fun AllFilesScreen(viewModel: AllFilesViewModel = hiltViewModel()) {
+fun AllFilesScreen(viewModel: AllFilesViewModel = viewModel()) {
     val uiState = viewModel.uiState.collectAsState()
     InBackground {
         Column(
@@ -45,7 +45,8 @@ fun AllFilesScreen(viewModel: AllFilesViewModel = hiltViewModel()) {
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(45.dp)
-                        .align(Alignment.Start),
+                        .align(Alignment.Start)
+                        .padding(horizontal = 15.dp),
                     color = MaterialTheme.colors.onBackground,
                     fontWeight = FontWeight(400),
                     fontSize = 32.sp
@@ -56,12 +57,13 @@ fun AllFilesScreen(viewModel: AllFilesViewModel = hiltViewModel()) {
                     val parent = path.substring(0, path.lastIndexOf('/'))
                     viewModel.processEvent(AllFilesEvent.SetDirectory(parent))
                     viewModel.processEvent(AllFilesEvent.LoadFiles)
-                })) {
+                }), verticalAlignment = Alignment.CenterVertically) {
                     Icon(
                         imageVector = Icons.Outlined.NavigateBefore,
                         contentDescription = null,
                         tint = MaterialTheme.colors.onBackground,
-                        modifier = Modifier.size(40.dp, 40.dp)
+                        modifier = Modifier
+                            .size(40.dp, 40.dp)
                     )
 
                     Spacer(modifier = Modifier.width(5.dp))
@@ -100,7 +102,10 @@ fun AllFilesScreen(viewModel: AllFilesViewModel = hiltViewModel()) {
                     )
                 }
             } else {
-                LazyColumn(state = rememberLazyListState(), modifier = Modifier.fillMaxSize()) {
+                LazyColumn(
+                    state = rememberLazyListState(initialFirstVisibleItemScrollOffset = 50),
+                    modifier = Modifier.fillMaxSize()
+                ) {
                     items(items = uiState.value.files) {
                         FileCard(
                             file = it,

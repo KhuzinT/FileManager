@@ -12,16 +12,12 @@ import kotlinx.coroutines.launch
 import java.io.File
 import javax.inject.Inject
 
-@HiltViewModel
-class AllFilesViewModel @Inject constructor(private val repository: FileRepository) : ViewModel() {
+class AllFilesViewModel : ViewModel() {
     private val _uiState = MutableStateFlow(AllFilesState())
     val uiState = _uiState.asStateFlow()
 
     init {
-        viewModelScope.launch {
-            loadFiles()
-            saveFilesRecursive(_uiState.value.directory)
-        }
+        loadFiles()
     }
 
     fun processEvent(event: AllFilesEvent) {
@@ -48,24 +44,5 @@ class AllFilesViewModel @Inject constructor(private val repository: FileReposito
 
     private fun getFiles(directory: File): List<File> {
         return directory.listFiles()?.toList()?.sorted() ?: emptyList()
-    }
-
-    private suspend fun saveFilesRecursive(directory: File) {
-        repository.deleteByPath(directory.absolutePath)
-        val files = _uiState.value.files
-        for (file in files) {
-            repository.insert(
-                FileEntity(
-                    name = file.absolutePath,
-                    directory = file.parentFile?.absolutePath ?: "",
-                    hash = file.hashCode().toString()
-                )
-            )
-        }
-        for (file in files) {
-            if (file.isDirectory) {
-                saveFilesRecursive(file)
-            }
-        }
     }
 }

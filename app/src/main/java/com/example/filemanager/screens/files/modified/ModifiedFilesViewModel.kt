@@ -22,9 +22,7 @@ class ModifiedFilesViewModel
     val uiState = _uiState.asStateFlow()
 
     init {
-        viewModelScope.launch(Dispatchers.IO) {
-            compareHashesRecursive(getExternalStorageDirectory())
-        }
+
     }
 
     fun processEvent(event: ModifiedFilesEvent) {
@@ -33,46 +31,6 @@ class ModifiedFilesViewModel
 
     private fun getFiles(directory: File): List<File> {
         return directory.listFiles()?.toList()?.sorted() ?: emptyList()
-    }
-
-    private suspend fun compareHashesRecursive(directory: File) {
-        val files = getFiles(directory)
-        val saved = repository.getByPath(directory.absolutePath)
-
-
-        val modified = mutableListOf<File>()
-        for (file in files) {
-            val entity = FileEntity(
-                name = file.absolutePath,
-                directory = file.parentFile?.absolutePath ?: "",
-                hash = file.hashCode().toString()
-            )
-            if (entity !in saved) {
-                modified.add(file)
-            }
-        }
-
-        modified.addAll(_uiState.value.files)
-        _uiState.update { currentState ->
-            currentState.copy(files = modified)
-        }
-
-        repository.deleteByPath(directory.absolutePath)
-        for (file in files) {
-            repository.insert(
-                FileEntity(
-                    name = file.absolutePath,
-                    directory = file.parentFile?.absolutePath ?: "",
-                    hash = file.hashCode().toString()
-                )
-            )
-        }
-
-        for (file in files) {
-            if (file.isDirectory) {
-                compareHashesRecursive(file)
-            }
-        }
     }
 
 }
