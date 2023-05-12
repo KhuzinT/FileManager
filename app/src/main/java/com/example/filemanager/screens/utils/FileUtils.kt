@@ -12,19 +12,32 @@ fun getFiles(directory: File): List<File> {
 }
 
 fun openFile(file: File, context: Context) {
-    val uri = FileProvider.getUriForFile(context, "com.example.filemanager.main.provider", file)
+    if (file.extension in listOf("png", "jpeg", "jpg", "img")) {
+        val uri = FileProvider.getUriForFile(context, "com.example.filemanager.main.provider", file)
 
-    val intent = Intent(Intent.ACTION_VIEW)
-    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
 
-    val mimeType = MimeTypeMap.getSingleton()
-        .getMimeTypeFromExtension(MimeTypeMap.getFileExtensionFromUrl(uri.toString()))
-        ?: "application/*"
-    intent.setDataAndType(uri, mimeType)
+        val mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(MimeTypeMap.getFileExtensionFromUrl(uri.toString()))
+            ?: "image/*"
+        intent.setDataAndType(uri, mimeType)
 
-    val chooserIntent = Intent.createChooser(intent, "Открыть с помощью")
+        context.startActivity(intent)
+    } else {
+        val uri = FileProvider.getUriForFile(context, "com.example.filemanager.main.provider", file)
 
-    ContextCompat.startActivity(context, chooserIntent, null)
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+
+        val mimeType = MimeTypeMap.getSingleton()
+            .getMimeTypeFromExtension(MimeTypeMap.getFileExtensionFromUrl(uri.toString()))
+            ?: "application/*"
+        intent.setDataAndType(uri, mimeType)
+
+        val chooserIntent = Intent.createChooser(intent, "Открыть с помощью")
+
+        ContextCompat.startActivity(context, chooserIntent, null)
+    }
 }
 
 fun shareFile(file: File, context: Context) {
