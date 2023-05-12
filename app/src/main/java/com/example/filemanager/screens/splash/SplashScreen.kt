@@ -31,7 +31,7 @@ fun SplashScreen(
 
     LaunchedEffect(key1 = uiState) {
         appViewModel.processEvent(AppEvent.CheckPermissions(context = context))
-        delay(2000)
+        delay(800)
         if (uiState.value.allPermissionsReceived) {
             navigateToMain()
         } else {
