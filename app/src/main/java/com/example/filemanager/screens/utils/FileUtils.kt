@@ -62,10 +62,10 @@ fun shareFile(file: File, context: Context) {
 fun sortFiles(sortedBy: SortedBy, list: List<File>): List<File> {
     return when (sortedBy) {
         SortedBy.NameAZ -> {
-            list.sortedBy { it.name }
+            list.sortedBy { it.name }.reversed()
         }
         SortedBy.NameZA -> {
-            list.sortedBy { it.name }.reversed()
+            list.sortedBy { it.name }
         }
         SortedBy.SizeIncrease -> {
             list.sortedBy { it.length() }
